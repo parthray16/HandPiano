@@ -19,6 +19,8 @@ def main():
     finger_dict = {4: "thumb", 8: "index finger", 12: "middle finger", 16: "ring finger", 20: "pinky finger"}
     while True:
         success, img = cap.read()
+        # when using an inverted camera
+        img = cv2.flip(img, 1)
         imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         results = hands.process(imgRGB)
         if results.multi_hand_landmarks:
@@ -37,7 +39,10 @@ def main():
                         if id == prev_id + 1:
                             if cy > prev_y:
                                 print(f"{id=}")
-                                print("The " + finger_dict[id] + " was put down")
+                                if results.multi_handedness[0].classification[0].label == 'Left':
+                                    print("The " + "left " + finger_dict[id] + " was put down")
+                                else:
+                                    print("The " + "right " + finger_dict[id] + " was put down")
                                 playsound(f"Notes/key{id}.mp3", block=False)
                         prev_id = id
                         prev_y = cy
