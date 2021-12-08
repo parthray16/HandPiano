@@ -2,5 +2,5 @@
 Computer Vision Final Project
 
 To Run:
-  pip install dependencies.txt
+  pip install -r requirements.txt
   python ./HandPiano.py
