@@ -1,3 +1,5 @@
 playsound==1.2.2
 mediapipe
 opencv-python
+pandas
+scikit-learn
